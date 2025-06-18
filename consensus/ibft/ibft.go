@@ -446,11 +446,14 @@ func (i *backendIBFT) VerifyHeader(header *types.Header) error {
 // The blockNumber argument indicates which formula was used to calculate the result (see PRs #513, #549)
 func (i *backendIBFT) quorumSize(blockNumber uint64) QuorumImplementation {
 	if blockNumber < i.quorumSizeBlockNum {
+		fmt.Println("------------------------------LegacyQuorumSize-",LegacyQuorumSize)
 		return LegacyQuorumSize
 	}
+		fmt.Println("--------------------------OptimalQuorumSize-----",OptimalQuorumSize)
 
 	return OptimalQuorumSize
 }
+
 
 // ProcessHeaders updates the snapshot based on previously verified headers
 func (i *backendIBFT) ProcessHeaders(headers []*types.Header) error {
