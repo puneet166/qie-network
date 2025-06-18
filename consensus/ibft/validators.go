@@ -8,9 +8,8 @@ import (
 )
 
 func CalcMaxFaultyNodes(s validators.Validators) int {
-	    fmt.Println("CalcMaxFaultyNodes---------------!",(s.Len() - 1) / 3)
-	// Keeping original calculation but not used in quorum override below
-	return (s.Len() - 1) / 3
+	fmt.Println("FAKE faulty nodes: returning 0 regardless of validator count")
+	return 0
 }
 
 type QuorumImplementation func(validators.Validators) int
@@ -18,20 +17,15 @@ type QuorumImplementation func(validators.Validators) int
 // LegacyQuorumSize overrides quorum to 2 if 2 or more validators exist,
 // allowing block production with just 2 validators.
 func LegacyQuorumSize(set validators.Validators) int {
-	
-	if set.Len() >= 2 {
-		return 2
-	}
-	return set.Len()
+	fmt.Println("FORCING legacy quorum size to 2")
+	return 2
 }
 
 // OptimalQuorumSize overrides quorum to 2 if 2 or more validators exist,
 // similar to LegacyQuorumSize.
 func OptimalQuorumSize(set validators.Validators) int {
-	if set.Len() >= 2 {
-		return 2
-	}
-	return set.Len()
+	fmt.Println("FORCING quorum size to 2 no matter what")
+	return 2
 }
 
 func CalcProposer(

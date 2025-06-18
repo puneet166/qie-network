@@ -444,13 +444,10 @@ func (i *backendIBFT) VerifyHeader(header *types.Header) error {
 // number of votes required to reach quorum based on the size of the set.
 // The blockNumber argument indicates which formula was used to calculate the result (see PRs #513, #549)
 func (i *backendIBFT) quorumSize(blockNumber uint64) QuorumImplementation {
-	if blockNumber < i.quorumSizeBlockNum {
-		fmt.Println("------------------------------LegacyQuorumSize-",LegacyQuorumSize)
-		return LegacyQuorumSize
+	return func(set validators.Validators) int {
+		fmt.Println("OVERRIDDEN QuorumImplementation: always returning 2")
+		return 2
 	}
-		fmt.Println("--------------------------OptimalQuorumSize-----",OptimalQuorumSize)
-
-	return OptimalQuorumSize
 }
 
 
